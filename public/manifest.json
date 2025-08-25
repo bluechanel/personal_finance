@@ -1,0 +1,49 @@
+{
+  "name": "个人财务分析工具",
+  "short_name": "财务助手",
+  "description": "专业的个人财务健康评估和理财建议工具，支持中英文双语，帮助您轻松管理个人财务",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "productivity", "utilities"],
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "个人财务分析工具主界面"
+    },
+    {
+      "src": "/screenshot-narrow.png", 
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "移动端财务分析界面"
+    }
+  ],
+  "features": [
+    "财务健康评估",
+    "投资建议分析", 
+    "风险因素识别",
+    "多语言支持"
+  ]
+}

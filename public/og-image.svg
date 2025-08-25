@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景渐变 -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- 渐变定义 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1E40AF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E3A8A;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="chartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 左侧内容区域 -->
+  <g transform="translate(80, 120)">
+    <!-- 主标题 -->
+    <text x="0" y="0" fill="white" font-family="Arial, sans-serif" font-size="56" font-weight="bold">
+      个人财务分析工具
+    </text>
+    
+    <!-- 副标题 -->
+    <text x="0" y="80" fill="#E5E7EB" font-family="Arial, sans-serif" font-size="32" font-weight="normal">
+      专业理财建议助手
+    </text>
+    
+    <!-- 功能特点 -->
+    <g transform="translate(0, 140)">
+      <text x="0" y="0" fill="#F3F4F6" font-family="Arial, sans-serif" font-size="24">
+        ✓ 财务健康评估
+      </text>
+      <text x="0" y="45" fill="#F3F4F6" font-family="Arial, sans-serif" font-size="24">
+        ✓ 投资建议分析
+      </text>
+      <text x="0" y="90" fill="#F3F4F6" font-family="Arial, sans-serif" font-size="24">
+        ✓ 风险因素识别
+      </text>
+      <text x="0" y="135" fill="#F3F4F6" font-family="Arial, sans-serif" font-size="24">
+        ✓ 中英文双语支持
+      </text>
+    </g>
+  </g>
+  
+  <!-- 右侧图表区域 -->
+  <g transform="translate(700, 150)">
+    <!-- 金币图标 -->
+    <circle cx="80" cy="80" r="40" fill="#F59E0B" stroke="#D97706" stroke-width="4"/>
+    <text x="80" y="95" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="36" font-weight="bold">¥</text>
+    
+    <!-- 趋势线 -->
+    <polyline points="50,250 120,220 190,190 260,160 330,130" 
+              fill="none" 
+              stroke="url(#chartGradient)" 
+              stroke-width="8" 
+              stroke-linecap="round"/>
+    
+    <!-- 数据点 -->
+    <circle cx="120" cy="220" r="8" fill="#10B981"/>
+    <circle cx="190" cy="190" r="8" fill="#10B981"/>
+    <circle cx="260" cy="160" r="8" fill="#10B981"/>
+    <circle cx="330" cy="130" r="8" fill="#10B981"/>
+    
+    <!-- 柱状图 -->
+    <rect x="200" y="280" width="20" height="60" fill="#3B82F6" rx="5"/>
+    <rect x="230" y="260" width="20" height="80" fill="#10B981" rx="5"/>
+    <rect x="260" y="290" width="20" height="50" fill="#F59E0B" rx="5"/>
+    <rect x="290" y="240" width="20" height="100" fill="#8B5CF6" rx="5"/>
+  </g>
+  
+  <!-- 装饰性元素 -->
+  <circle cx="1050" cy="150" r="60" fill="none" stroke="white" stroke-width="2" opacity="0.3"/>
+  <circle cx="150" cy="500" r="40" fill="none" stroke="white" stroke-width="2" opacity="0.2"/>
+</svg>
