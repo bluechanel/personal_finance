@@ -52,7 +52,8 @@ function SignInContent() {
       } else {
         setError(result.error || '操作失败');
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Auth error:', err);
       setError('操作失败，请重试');
     } finally {
       setIsLoading(false);

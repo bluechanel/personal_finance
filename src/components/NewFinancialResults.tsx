@@ -1,6 +1,6 @@
 "use client";
 
-import { FinancialData, FinancialAnalysis, ChartData } from '@/types/financial';
+import { FinancialData, ChartData } from '@/types/financial';
 import { calculateFinancialAnalysis, getFinancialMetrics } from '@/utils/financial';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { 

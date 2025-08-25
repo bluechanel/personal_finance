@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { useAuth } from '@/components/AuthProvider';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -56,9 +57,11 @@ export default function UserProfile() {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="flex items-center space-x-3 bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-200 hover:border-gray-300 transition-colors duration-200"
       >
-        <img
+        <Image
           src={avatarUrl}
           alt={displayName}
+          width={32}
+          height={32}
           className="w-8 h-8 rounded-full"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
@@ -89,9 +92,11 @@ export default function UserProfile() {
         <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
           <div className="px-4 py-3 border-b border-gray-100">
             <div className="flex items-center space-x-3">
-              <img
+              <Image
                 src={avatarUrl}
                 alt={displayName}
+                width={40}
+                height={40}
                 className="w-10 h-10 rounded-full"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;

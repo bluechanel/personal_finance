@@ -1,3 +1,5 @@
+import { FinancialData } from '@/types/financial';
+
 // 用户数据类型定义
 export interface User {
   id: string;
@@ -17,7 +19,21 @@ export interface AuthResponse {
 export interface FinancialDataResponse {
   success: boolean;
   error?: string;
-  data?: any;
+  data?: FinancialData;
+}
+
+export interface FinancialAnalysis {
+  id: string;
+  title?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface FinancialAnalysisDetail {
+  data: FinancialData;
+  title?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 // 客户端用户管理类
@@ -100,7 +116,7 @@ export class UserManager {
   }
 
   // 保存用户财务数据
-  public async saveFinancialData(token: string, financialData: any, title?: string): Promise<{ success: boolean; id?: string }> {
+  public async saveFinancialData(token: string, financialData: FinancialData, title?: string): Promise<{ success: boolean; id?: string }> {
     try {
       const response = await fetch('/api/financial/save', {
         method: 'POST',
@@ -119,7 +135,7 @@ export class UserManager {
   }
 
   // 获取用户财务数据历史记录列表
-  public async getFinancialAnalysesList(token: string): Promise<any[]> {
+  public async getFinancialAnalysesList(token: string): Promise<FinancialAnalysis[]> {
     try {
       const response = await fetch('/api/financial/list', {
         method: 'POST',
@@ -138,7 +154,7 @@ export class UserManager {
   }
 
   // 获取单个财务分析详情
-  public async getFinancialAnalysis(token: string, analysisId: string): Promise<any | null> {
+  public async getFinancialAnalysis(token: string, analysisId: string): Promise<FinancialAnalysisDetail | null> {
     try {
       const response = await fetch('/api/financial/get', {
         method: 'POST',
@@ -176,7 +192,7 @@ export class UserManager {
   }
 
   // 获取用户财务数据
-  public async getFinancialData(token: string): Promise<any | null> {
+  public async getFinancialData(token: string): Promise<FinancialData | null> {
     try {
       const response = await fetch('/api/financial/load', {
         method: 'POST',

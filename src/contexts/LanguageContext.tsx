@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { zh, en, Locale, LocaleKey, locales } from '@/locales';
+import { zh, en, Locale, LocaleKey } from '@/locales';
 
 interface LanguageContextType {
   locale: LocaleKey;

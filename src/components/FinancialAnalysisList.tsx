@@ -7,7 +7,7 @@ import { FinancialData } from '@/types/financial';
 
 interface FinancialAnalysis {
   id: string;
-  title: string;
+  title?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -25,24 +25,24 @@ export default function FinancialAnalysisList({ onSelectAnalysis, onNewAnalysis 
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
+    const loadAnalysesData = async () => {
+      if (!token) return;
+      
+      setIsLoading(true);
+      try {
+        const analysesList = await userManager.getFinancialAnalysesList(token);
+        setAnalyses(analysesList);
+      } catch (error) {
+        console.error('加载财务分析列表失败:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     if (token) {
-      loadAnalyses();
+      loadAnalysesData();
     }
   }, [token]);
-
-  const loadAnalyses = async () => {
-    if (!token) return;
-    
-    setIsLoading(true);
-    try {
-      const analysesList = await userManager.getFinancialAnalysesList(token);
-      setAnalyses(analysesList);
-    } catch (error) {
-      console.error('加载财务分析列表失败:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleLoadAnalysis = async (analysisId: string) => {
     if (!token) return;
@@ -51,7 +51,7 @@ export default function FinancialAnalysisList({ onSelectAnalysis, onNewAnalysis 
     try {
       const analysis = await userManager.getFinancialAnalysis(token, analysisId);
       if (analysis && analysis.data) {
-        onSelectAnalysis(analysis.data as FinancialData, analysis.title);
+        onSelectAnalysis(analysis.data as FinancialData, analysis.title || '未命名分析');
       }
     } catch (error) {
       console.error('加载财务分析失败:', error);
@@ -133,7 +133,7 @@ export default function FinancialAnalysisList({ onSelectAnalysis, onNewAnalysis 
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <h3 className="text-lg font-medium text-gray-800 mb-1">
-                    {analysis.title}
+                    {analysis.title || '未命名的财务分析'}
                   </h3>
                   <div className="text-sm text-gray-500 space-y-1">
                     <p>创建时间：{new Date(analysis.createdAt).toLocaleString('zh-CN')}</p>

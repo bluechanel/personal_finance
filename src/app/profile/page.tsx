@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { useAuth } from '@/components/AuthProvider';
-import { LanguageProvider, useLanguage } from '@/contexts/LanguageContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 import LanguageToggle from '@/components/LanguageToggle';
 import { validateEmail } from '@/utils/validation';
 
 function ProfileContent() {
   const { user, token, isAuthenticated, logout, refreshUser } = useAuth();
-  const { t } = useLanguage();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -60,7 +60,8 @@ function ProfileContent() {
       } else {
         setError(data.error || '更新失败');
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Update email error:', err);
       setError('网络错误，请重试');
     } finally {
       setIsSaving(false);
@@ -110,9 +111,11 @@ function ProfileContent() {
 
           {/* 头像和基本信息 */}
           <div className="flex flex-col items-center mb-8">
-            <img
+            <Image
               src={avatarUrl}
               alt={user.username}
+              width={96}
+              height={96}
               className="w-24 h-24 rounded-full mb-4"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;

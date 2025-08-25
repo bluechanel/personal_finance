@@ -55,7 +55,8 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    // 返回用户信息和令牌
+    // 返回用户信息和令牌（排除密码字段）
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _, ...userWithoutPassword } = user;
     
     return NextResponse.json({

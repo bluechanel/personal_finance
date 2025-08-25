@@ -48,9 +48,7 @@ export default function FinancialForm({ onSubmit }: FinancialFormProps) {
     onSubmit(formData);
   };
 
-  const formatNumber = (value: number) => {
-    return value.toLocaleString();
-  };
+
 
   return (
     <div className="space-y-6">
