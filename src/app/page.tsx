@@ -138,33 +138,47 @@ function HomeContent() {
 
         {pageState === 'results' && financialData && (
           <div className="space-y-6">
+            {/* 财务信息输入表单 - 上部 */}
             <div className="bg-white rounded-xl shadow-lg p-6">
               <div className="flex justify-between items-center mb-4">
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-800">
-                    {t.results.title}
+                  <h2 className="text-xl font-semibold text-gray-800">
+                    📝 财务信息
                   </h2>
                   {currentAnalysisTitle && (
                     <p className="text-sm text-gray-600 mt-1">{currentAnalysisTitle}</p>
                   )}
                 </div>
-                <div className="flex space-x-3">
+                <div className="flex space-x-2">
                   {isAuthenticated && (
                     <button
                       onClick={handleBackToList}
-                      className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                      className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-2 rounded-lg transition-colors duration-200"
                     >
                       返回列表
                     </button>
                   )}
                   <button
                     onClick={handleReset}
-                    className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                    className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-2 rounded-lg transition-colors duration-200"
                   >
                     {t.results.resetButton}
                   </button>
                 </div>
               </div>
+              
+              {/* 财务表单 - 带有当前数据 */}
+              <FinancialForm 
+                onSubmit={handleFinancialSubmit} 
+                initialData={financialData}
+              />
+            </div>
+
+            {/* 分析结果 - 下部 */}
+            <div className="bg-white rounded-xl shadow-lg p-6">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                📊 {t.results.title}
+              </h2>
               <NewFinancialResults data={financialData} />
             </div>
           </div>

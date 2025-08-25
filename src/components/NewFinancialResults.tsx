@@ -160,7 +160,7 @@ export default function NewFinancialResults({ data }: NewFinancialResultsProps) 
       </div>
 
       {/* 图表展示区域 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="space-y-6">
         {/* 资产结构饼图 */}
         <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
           <h3 className="text-lg font-bold text-gray-800 mb-4">{t.results.charts.assetStructure}</h3>
@@ -248,7 +248,7 @@ export default function NewFinancialResults({ data }: NewFinancialResultsProps) 
       {/* 详细财务比率 */}
       <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
         <h3 className="text-lg font-bold text-gray-800 mb-4">{t.results.charts.financialRatios}</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
             <div className="text-center">
               <div className="text-2xl font-bold text-blue-600">
@@ -292,7 +292,7 @@ export default function NewFinancialResults({ data }: NewFinancialResultsProps) 
       </div>
 
       {/* 建议和分析 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="space-y-6">
         <div className="bg-green-50 p-6 rounded-xl border border-green-200">
           <h3 className="text-lg font-bold text-green-800 mb-4">{t.results.analysis.strengths}</h3>
           {analysis.strengths.length > 0 ? (
@@ -327,7 +327,7 @@ export default function NewFinancialResults({ data }: NewFinancialResultsProps) 
       </div>
 
       {/* 理财建议和风险提示 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="space-y-6">
         <div className="bg-yellow-50 p-6 rounded-xl border border-yellow-200">
           <h3 className="text-lg font-bold text-yellow-800 mb-4">{t.results.analysis.recommendations}</h3>
           {analysis.recommendations.length > 0 ? (

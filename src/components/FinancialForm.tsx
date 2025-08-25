@@ -1,16 +1,19 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FinancialData } from '@/types/financial';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface FinancialFormProps {
   onSubmit: (data: FinancialData) => void;
+  initialData?: FinancialData;
 }
 
-export default function FinancialForm({ onSubmit }: FinancialFormProps) {
+export default function FinancialForm({ onSubmit, initialData }: FinancialFormProps) {
   const { t } = useLanguage();
-  const [formData, setFormData] = useState<FinancialData>({
+  
+  // 默认空值数据
+  const defaultData: FinancialData = {
     // 资产类
     ownerHouseValue: 0,
     investmentProperty: 0,
@@ -34,7 +37,16 @@ export default function FinancialForm({ onSubmit }: FinancialFormProps) {
     annualCarPayment: 0,
     annualInvestmentIncome: 0,
     emergencyFund: 0
-  });
+  };
+  
+  const [formData, setFormData] = useState<FinancialData>(initialData || defaultData);
+
+  // 当 initialData 变化时同步表单数据
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
 
   const handleInputChange = (field: keyof FinancialData, value: number) => {
     setFormData(prev => ({
@@ -52,14 +64,14 @@ export default function FinancialForm({ onSubmit }: FinancialFormProps) {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form onSubmit={handleSubmit} className="space-y-6">
         {/* 资产类 */}
         <div className="bg-green-50 p-6 rounded-xl border border-green-200">
           <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
             {t.form.assets.title}
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 {t.form.assets.ownerHouseValue} ({t.form.unit})
@@ -172,7 +184,7 @@ export default function FinancialForm({ onSubmit }: FinancialFormProps) {
             {t.form.debts.title}
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 {t.form.debts.mortgageBalance} ({t.form.unit})
@@ -233,7 +245,7 @@ export default function FinancialForm({ onSubmit }: FinancialFormProps) {
             {t.form.incomeExpense.title}
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 {t.form.incomeExpense.annualSalary} ({t.form.unit})
