@@ -171,6 +171,63 @@ export const zh = {
   footer: {
     privacyNotice: '💡 提示：所有数据仅在本地处理，不会上传到服务器',
   },
+  
+  // 登录相关
+  auth: {
+    signIn: {
+      button: '登录',
+      title: '登录您的账户',
+      subtitle: '使用社交账户快速登录',
+      continueWith: '继续使用',
+      signing: '登录中...',
+      terms: '登录即表示您同意我们的服务条款和隐私政策',
+    },
+    signOut: {
+      button: '退出登录',
+      confirm: '确定要退出登录吗？',
+    },
+    register: {
+      title: '创建新账户',
+      button: '注册',
+      registering: '注册中...',
+    },
+    form: {
+      username: '用户名',
+      password: '密码',
+      email: '邮箱',
+      optional: '可选',
+      usernamePlaceholder: '请输入用户名',
+      passwordPlaceholder: '请输入密码',
+      emailPlaceholder: '请输入邮箱地址',
+    },
+    switchToRegister: '没有账户？点击注册',
+    switchToLogin: '已有账户？点击登录',
+    privacy: '所有数据均存储在您的本地设备中，确保您的隐私安全',
+    profile: {
+      title: '个人资料',
+      myData: '我的财务数据',
+      settings: '账户设置',
+    },
+    error: {
+      title: '登录失败',
+      default: '登录时发生未知错误',
+      configuration: '服务器配置错误',
+      accessDenied: '访问被拒绝',
+      verification: '验证失败',
+      oauthSignin: 'OAuth 登录失败',
+      oauthCallback: 'OAuth 回调失败',
+      oauthCreateAccount: '创建 OAuth 账户失败',
+      emailCreateAccount: '邮箱创建账户失败',
+      callback: '登录回调错误',
+      accountNotLinked: '该邮箱已被其他登录方式使用',
+      emailSignin: '邮箱登录失败',
+      credentialsSignin: '登录凭据无效',
+      sessionRequired: '需要登录',
+      tryAgain: '重新登录',
+      backHome: '返回首页',
+      code: '错误代码',
+    },
+  },
 };
 
 export type Locale = typeof zh;

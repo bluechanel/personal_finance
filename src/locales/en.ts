@@ -173,4 +173,61 @@ export const en: Locale = {
   footer: {
     privacyNotice: '💡 Note: All data is processed locally and will not be uploaded to servers',
   },
+  
+  // 登录相关
+  auth: {
+    signIn: {
+      button: 'Sign In',
+      title: 'Sign in to your account',
+      subtitle: 'Use your social account for quick sign in',
+      continueWith: 'Continue with',
+      signing: 'Signing in...',
+      terms: 'By signing in, you agree to our Terms of Service and Privacy Policy',
+    },
+    signOut: {
+      button: 'Sign Out',
+      confirm: 'Are you sure you want to sign out?',
+    },
+    register: {
+      title: 'Create new account',
+      button: 'Register',
+      registering: 'Registering...',
+    },
+    form: {
+      username: 'Username',
+      password: 'Password',
+      email: 'Email',
+      optional: 'optional',
+      usernamePlaceholder: 'Enter your username',
+      passwordPlaceholder: 'Enter your password',
+      emailPlaceholder: 'Enter your email address',
+    },
+    switchToRegister: 'No account? Click to register',
+    switchToLogin: 'Already have an account? Click to sign in',
+    privacy: 'All data is stored locally on your device, ensuring your privacy and security',
+    profile: {
+      title: 'Profile',
+      myData: 'My Financial Data',
+      settings: 'Account Settings',
+    },
+    error: {
+      title: 'Sign In Failed',
+      default: 'An unknown error occurred during sign in',
+      configuration: 'Server configuration error',
+      accessDenied: 'Access denied',
+      verification: 'Verification failed',
+      oauthSignin: 'OAuth sign in failed',
+      oauthCallback: 'OAuth callback failed',
+      oauthCreateAccount: 'Failed to create OAuth account',
+      emailCreateAccount: 'Failed to create email account',
+      callback: 'Sign in callback error',
+      accountNotLinked: 'This email is already used by another sign in method',
+      emailSignin: 'Email sign in failed',
+      credentialsSignin: 'Invalid sign in credentials',
+      sessionRequired: 'Sign in required',
+      tryAgain: 'Try Again',
+      backHome: 'Back to Home',
+      code: 'Error Code',
+    },
+  },
 };

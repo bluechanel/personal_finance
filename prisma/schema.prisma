@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// 用户模型
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  email     String?  @unique
+  password  String
+  salt      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 关联
+  profile       UserProfile?
+  financialData UserFinancialData[]
+  sessions      AuthSession[]
+
+  @@map("users")
+}
+
+// 用户资料模型
+model UserProfile {
+  id          String @id @default(cuid())
+  userId      String @unique
+  displayName String?
+  avatar      String?
+  preferences Json   @default("{}")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 关联
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_profiles")
+}
+
+// 用户财务数据模型
+model UserFinancialData {
+  id              String   @id @default(cuid())
+  userId          String
+  title           String?  // 财务分析标题
+  dataSnapshot    Json     // 存储完整的财务数据快照
+  analysisResults Json?    // 存储分析结果
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // 关联
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // 索引
+  @@index([userId, createdAt])
+  @@map("user_financial_data")
+}
+
+// 认证会话模型
+model AuthSession {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  // 关联
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("auth_sessions")
+}
