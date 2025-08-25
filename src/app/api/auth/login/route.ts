@@ -2,9 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { verifyPassword } from '@/utils/auth';
 import { generateToken } from '@/utils/jwt';
+import { validateEnvironment } from '@/utils/env';
 
 export async function POST(request: NextRequest) {
   try {
+    // 验证环境变量
+    validateEnvironment();
     const { username, password } = await request.json();
 
     // 验证输入
