@@ -50,7 +50,7 @@ export const en: Locale = {
     },
     
     // 单位和占位符
-    unit: '10k RMB',
+    unit: 'RMB',
     placeholders: {
       house: 'e.g.: 300',
       investment: 'e.g.: 150',

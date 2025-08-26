@@ -48,7 +48,7 @@ export const zh = {
     },
     
     // 单位和占位符
-    unit: '万元',
+    unit: '元',
     placeholders: {
       house: '如：300',
       investment: '如：150',

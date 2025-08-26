@@ -74,8 +74,8 @@ export default function NewFinancialResults({ data }: NewFinancialResultsProps) 
   }));
 
   const formatCurrency = (value: number) => {
-    const unit = t.nav.languageToggle === 'Language' ? '万元' : '10k RMB';
-    return `${value.toFixed(1)}${unit}`;
+    const unit = t.nav.languageToggle === 'Language' ? '元' : 'RMB';
+    return `${value.toLocaleString()}${unit}`;
   };
   const formatPercentage = (value: number) => `${value.toFixed(1)}%`;
 

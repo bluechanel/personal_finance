@@ -1,9 +1,12 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import FinancialForm from '@/components/FinancialForm';
 import NewFinancialResults from '@/components/NewFinancialResults';
 import FinancialAnalysisList from '@/components/FinancialAnalysisList';
+import AIChatDrawer from '@/components/AIChatDrawer';
+import FinancialDataPrivacyConsent from '@/components/FinancialDataPrivacyConsent';
 import { FinancialData } from '@/types/financial';
 import { LanguageProvider, useLanguage } from '@/contexts/LanguageContext';
 import LanguageToggle from '@/components/LanguageToggle';
@@ -18,8 +21,12 @@ function HomeContent() {
   const [financialData, setFinancialData] = useState<FinancialData | null>(null);
   const [currentAnalysisTitle, setCurrentAnalysisTitle] = useState<string>('');
   const [pageState, setPageState] = useState<PageState>('list');
+  const [isAIChatOpen, setIsAIChatOpen] = useState(false);
+  const [showPrivacyConsent, setShowPrivacyConsent] = useState(false);
+  const [hasAIPrivacyConsent, setHasAIPrivacyConsent] = useState(false);
   const { t } = useLanguage();
   const { user, isAuthenticated, token } = useAuth();
+  const router = useRouter();
 
   // 监听用户登录状态变化
   useEffect(() => {
@@ -77,6 +84,54 @@ function HomeContent() {
     } else {
       setPageState('form');
     }
+  };
+
+  // AI聊天相关处理函数
+  const handleAIChatOpen = () => {
+    // 检查用户是否已登录
+    if (!isAuthenticated) {
+      // 未登录用户跳转到登录页面
+      router.push('/auth/signin');
+      return;
+    }
+    
+    // 已登录用户继续正常流程
+    if (!hasAIPrivacyConsent) {
+      setShowPrivacyConsent(true);
+    } else {
+      setIsAIChatOpen(true);
+    }
+  };
+
+  const handlePrivacyConfirm = () => {
+    setHasAIPrivacyConsent(true);
+    setShowPrivacyConsent(false);
+    setIsAIChatOpen(true);
+  };
+
+  const handlePrivacyCancel = () => {
+    setShowPrivacyConsent(false);
+  };
+
+  const handleAIChatClose = () => {
+    setIsAIChatOpen(false);
+  };
+
+  // 计算财务数据摘要（用于隐私确认界面）
+  const getFinancialDataSummary = () => {
+    if (!financialData) return undefined;
+    
+    const totalAssets = (financialData.ownerHouseValue || 0) + (financialData.investmentProperty || 0) + (financialData.carValue || 0) + (financialData.stocksValue || 0) + (financialData.fundsValue || 0) + (financialData.cashAndDeposits || 0) + (financialData.pensionAccount || 0);
+    const totalLiabilities = (financialData.mortgageBalance || 0) + (financialData.carLoanBalance || 0) + (financialData.creditCardDebt || 0) + (financialData.consumerLoans || 0);
+    const monthlyIncome = ((financialData.annualSalary || 0) + (financialData.annualOtherIncome || 0)) / 12;
+    const monthlyExpenses = (financialData.annualLivingExpenses || 0) / 12;
+    
+    return {
+      totalAssets,
+      totalLiabilities,
+      monthlyIncome,
+      monthlyExpenses
+    };
   };
 
   return (
@@ -176,9 +231,29 @@ function HomeContent() {
 
             {/* 分析结果 - 下部 */}
             <div className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                📊 {t.results.title}
-              </h2>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-2xl font-semibold text-gray-800">
+                  📊 {t.results.title}
+                </h2>
+                
+                {/* AI交流提示按钮 */}
+                <div className="flex items-center space-x-3">
+                  <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-lg px-4 py-2">
+                    <p className="text-sm text-purple-700 mb-2 font-medium">
+                      🤖 {isAuthenticated ? '与AI交流，获取更多财务建议' : '登录后可使用AI财务顾问'}
+                    </p>
+                    <button
+                      onClick={handleAIChatOpen}
+                      className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200 text-sm font-medium flex items-center"
+                    >
+                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
+                      </svg>
+                      {isAuthenticated ? '开始AI咨询' : '登录使用AI顾问'}
+                    </button>
+                  </div>
+                </div>
+              </div>
               <NewFinancialResults data={financialData} />
             </div>
           </div>
@@ -190,6 +265,44 @@ function HomeContent() {
           </p>
         </footer>
       </div>
+      
+      {/* AI聊天抽屉 */}
+      <AIChatDrawer
+        isOpen={isAIChatOpen}
+        onClose={handleAIChatClose}
+        financialData={financialData}
+        onPrivacyConfirm={() => setHasAIPrivacyConsent(true)}
+        hasPrivacyConsent={hasAIPrivacyConsent}
+      />
+      
+      {/* 隐私确认对话框 */}
+      <FinancialDataPrivacyConsent
+        isOpen={showPrivacyConsent}
+        onConfirm={handlePrivacyConfirm}
+        onCancel={handlePrivacyCancel}
+        financialDataSummary={getFinancialDataSummary()}
+      />
+      
+      {/* 页面右下角的AI助手浮动按钮（仅在results状态显示） */}
+      {pageState === 'results' && financialData && (
+        <div className="fixed bottom-6 right-6 z-[100]">
+          <button
+            onClick={handleAIChatOpen}
+            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-full shadow-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-300 hover:scale-110 group"
+            title={isAuthenticated ? "AI财务顾问" : "登录使用AI顾问"}
+          >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
+            </svg>
+            
+            {/* 提示气泡 */}
+            <div className="absolute bottom-full right-0 mb-2 bg-black text-white text-xs rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              {isAuthenticated ? 'AI财务顾问' : '登录使用AI顾问'}
+              <div className="absolute top-full right-4 border-l-4 border-r-4 border-t-4 border-transparent border-t-black"></div>
+            </div>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
