@@ -11,7 +11,7 @@ if (!process.env.OPENAI_API_KEY) {
 // 创建OpenAI客户端实例
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-  baseURL: "https://open.bigmodel.cn/api/paas/v4/"
+  baseURL: process.env.OPENAI_BASE_URL
 });
 
 export { openai };

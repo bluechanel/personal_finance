@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
 
     // 调用OpenAI API - 启用流式输出
     const stream = await openai.chat.completions.create({
-      model: 'glm-4.5-flash',
+      model: process.env.OPENAI_MODEL_NAME || 'glm-4.5-flash',
       messages: gptMessages,
       max_tokens: 1500,
       temperature: 0.7,

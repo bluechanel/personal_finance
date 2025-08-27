@@ -50,6 +50,9 @@ cp .env.example .env
 - `DATABASE_URL`: Supabase 连接池 URL
 - `DIRECT_URL`: Supabase 直连 URL  
 - `NEXTAUTH_SECRET`: JWT 密钥
+- `OPENAI_BASE_URL`: API Base
+- `OPENAI_API_KEY`: API Key  
+- `OPENAI_MODEL_NAME`: 模型名称
 
 ### 4. 数据库初始化
 ```bash
@@ -61,7 +64,7 @@ npm run db:push
 npm run dev
 ```
 
-访问 [http://localhost:3001](http://localhost:3001) 查看应用。
+访问 [http://localhost:3000](http://localhost:3000) 查看应用。
 
 ## 📋 可用脚本
 
